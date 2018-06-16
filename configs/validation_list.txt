@@ -1,0 +1,2 @@
+t1/0028341/session_1/anat_1/anat.nii.gz	seg/28341_session1_T1_BrainSegmentation.nii.gz
+t1/0028332/session_1/anat_1/anat.nii.gz	seg/28332_session1_T1_BrainSegmentation.nii.gz
