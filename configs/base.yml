@@ -1,0 +1,12 @@
+batchsize: 16
+iteration: 450000
+iteration_decay_start: 400000
+seed: 0
+display_interval: 100
+snapshot_interval: 10000
+evaluation_interval: 5000
+
+adam:
+  alpha: 0.0001
+  beta1: 0.9
+  beta2: 0.999
