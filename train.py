@@ -133,6 +133,7 @@ def main():
         chainer.serializers.load_npz(args.resume, trainer)
 
     # Run the training
+    chainer.config.autotune = True
     print('Start training')
     trainer.run()
 
