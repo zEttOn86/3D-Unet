@@ -8,8 +8,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', '-r', type=str, default='F:/project/3D-Unet',
                         help='Directory to input image')
-    parser.add_argument('--traing_list', type=str, default='configs/training.txt')
-    parser.add_argument('--coordinate_list', type=str, default='configs/coordinate.csv')
+    parser.add_argument('--traing_list', type=str, default='configs/training_list.txt')
+    parser.add_argument('--coordinate_list', type=str, default='configs/coordinate_list.csv')
 
     args = parser.parse_args()
 
