@@ -73,6 +73,6 @@ class UnetDataset(chainer.dataset.DatasetMixin):
         x,y,z=self._coordinate[i]
         x_s, x_e = (x - int(self._patch_side/2)), (x + int(self._patch_side/2))
         y_s, y_e = (y - int(self._patch_side/2)), (y + int(self._patch_side/2))
-        y_s, y_e = (z - int(self._patch_side/2)), (z + int(self._patch_side/2))
+        z_s, z_e = (z - int(self._patch_side/2)), (z + int(self._patch_side/2))
 
-        return self._dataset[case_number][1][:, z_s:z_e, y_s:y_e, x_s:x_e], self._dataset[case_number][0][, z_s:z_e, y_s:y_e, x_s:x_e]
+        return self._dataset[case_number][1][:, z_s:z_e, y_s:y_e, x_s:x_e], self._dataset[case_number][0][:, z_s:z_e, y_s:y_e, x_s:x_e]

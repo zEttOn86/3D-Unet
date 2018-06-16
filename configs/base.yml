@@ -1,4 +1,4 @@
-batchsize: 16
+batchsize: 10
 iteration: 450000
 iteration_decay_start: 400000
 seed: 0
@@ -6,7 +6,9 @@ display_interval: 100
 snapshot_interval: 10000
 evaluation_interval: 5000
 
-patchside: 64
+patch:
+  patchside: 64
+  interval: 32
 
 unet:
   fn: model.py

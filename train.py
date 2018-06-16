@@ -4,7 +4,7 @@
 * @date 2018-6-15
 """
 import os, sys, time
-import argparse
+import argparse, yaml, shutil
 import chainer
 from chainer import training
 from chainer.training import extension
@@ -35,7 +35,12 @@ def main():
                         help='Path to training image list file')
     parser.add_argument('--validation_list', default='configs/validation_list.txt',
                         help='Path to validation image list file')
-    parser.add_argument('--coordinate_list', type=str, default='configs/coordinate_list.csv')
+
+    parser.add_argument('--training_coordinate_list', type=str,
+                        default='configs/training_coordinate_list.csv')
+    parser.add_argument('--validation_coordinate_list', type=str,
+                        default='configs/validation_coordinate_list.csv')
+
     args = parser.parse_args()
 
     '''
@@ -48,12 +53,12 @@ def main():
     print('')
 
     # Load the datasets
-    train = UnetDataset(args.root, args.traing_list, args.coordinate_list, config.patchside)
+    train = UnetDataset(args.root, args.training_list, args.training_coordinate_list, config.patch['patchside'])
     train_iter = chainer.iterators.SerialIterator(train, batch_size=config.batchsize)
 
     # Set up a neural network to train
     print ('Set up a neural network to train')
-    unet = UNet3D
+    unet = UNet3D(7)
     if args.model:
         chainer.serializers.load_npz(args.model, gen)
 
@@ -66,7 +71,7 @@ def main():
         optimizer = chainer.optimizers.Adam(alpha=alpha, beta1=beta1, beta2=beta2)
         optimizer.setup(model)
         return optimizer
-    opt_unet = make_optimizer(unet,
+    opt_unet = make_optimizer(model = unet,
                             alpha=config.adam['alpha'],
                             beta1=config.adam['beta1'],
                             beta2=config.adam['beta2'])
@@ -128,6 +133,7 @@ def main():
         chainer.serializers.load_npz(args.resume, trainer)
 
     # Run the training
+    print('Start training')
     trainer.run()
 
 if __name__ == '__main__':

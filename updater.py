@@ -12,7 +12,7 @@ import chainer.functions as F
 class Unet3DUpdater(chainer.training.StandardUpdater):
     def __init__(self, *args, **kwargs):
         self.unet = kwargs.pop("models")
-        super(UnetUpdater, self).__init__(*args, **kwargs)
+        super(Unet3DUpdater, self).__init__(*args, **kwargs)
 
     def loss_softmax_cross_entropy(self, unet, predict, ground_truth):
         """
@@ -21,7 +21,7 @@ class Unet3DUpdater(chainer.training.StandardUpdater):
         * @param ground_truth Ground truth label
         """
         batchsize = len(predict)
-        loss = F.sum(F.log(predict) * ground_truth)/batchsize
+        loss = F.sum(-F.log(predict) * ground_truth)/batchsize
 
         chainer.report({"loss":loss}, unet)#mistery
         return loss
@@ -32,7 +32,7 @@ class Unet3DUpdater(chainer.training.StandardUpdater):
         batch = self.get_iterator("main").next()#iterator
 
         # iterator
-        data, label = self.converter(batch, self.device)
+        label, data = self.converter(batch, self.device)
 
         unet = self.unet
 
