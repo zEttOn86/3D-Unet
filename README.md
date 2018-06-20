@@ -6,10 +6,12 @@ Training configs are written at coonfigs/base.yml.
 ## Usage
 1. Preprocesing  
 Patch coordinate is extracted as csv file.  
+
     Python preprocessing.py
     
 2. Training  
 Train 3D unet.  
+
     Python training.py
 
 ## Requirements
