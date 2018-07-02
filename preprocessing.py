@@ -17,7 +17,9 @@ def make_coordinate_csv(out_dir, csv_name, input_size, interval, patch_side):
     * @param patch_side Patch side
     input_size[0]=x, input_size[1]=y, input_size[2]=z
     interval[0]=x, interval[1]=y, interval[2]=z
-    '''
+    '''    
+    if os.path.exists(os.path.join(out_dir, csv_name)):
+        os.remove(os.path.join(out_dir, csv_name))
     with open(os.path.join(out_dir, csv_name), "a", newline="") as f:
         writer = csv.writer(f)
 
