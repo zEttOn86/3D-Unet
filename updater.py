@@ -25,6 +25,19 @@ class Unet3DUpdater(chainer.training.StandardUpdater):
 
         chainer.report({"loss":loss}, unet)#mistery
         return loss
+    
+    def jaccard_index(predict, ground_truth):    
+        JI_numerator=0.0
+        JI_denominator=0.0
+
+        predict = predict.ravel()
+        ground_truth = ground_truth.ravel()
+        seg = (predict > 0.5)
+    
+        JI_numerator = (seg * ground_truth).sum()
+        JI_denominator =(seg + ground_truth> 0).sum()
+
+        return JI_numerator/JI_denominator
 
     def update_core(self):
         #load optimizer called "unet"
