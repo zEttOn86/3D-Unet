@@ -13,6 +13,11 @@ Patch coordinate is extracted as csv file.
 Train 3D unet.  
 
     Python training.py
+    
+3. Prediction
+Segment images with trained network.
+
+    Python prediction.py
 
 ## Requirements
 - SimpleITK
