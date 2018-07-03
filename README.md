@@ -14,8 +14,8 @@ Train 3D unet.
 
     Python training.py
     
-3. Prediction
-Segment images with trained network.
+3. Prediction  
+Segment images with trained network.  
 
     Python prediction.py
 
