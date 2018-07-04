@@ -24,11 +24,11 @@ class UNet3DEvaluator(extensions.Evaluator):
         self.eval_hook = eval_hook
 
     def jaccard_index(self,predict, ground_truth):
-        JI_numerator=0.0
-        JI_denominator=0.0
+        JI_numerator = 0.0
+        JI_denominator = 0.0
 
-        predict = F.flatten(predict).data
-        ground_truth = F.flatten(ground_truth).data
+        predict = F.flatten(predict[:,1:4,:,:,:]).data
+        ground_truth = F.flatten(ground_truth[:,1:4,:,:,:]).data
         seg = (predict > 0.5)
 
         JI_numerator = (seg * ground_truth).sum()
@@ -37,11 +37,11 @@ class UNet3DEvaluator(extensions.Evaluator):
         return JI_numerator/JI_denominator
 
     def dice_coefficent(self,predict, ground_truth):
-        dice_numerator=0.0
-        dice_denominator=0.0
+        dice_numerator = 0.0
+        dice_denominator = 0.0
 
-        predict = F.flatten(predict).data
-        ground_truth = F.flatten(ground_truth).data
+        predict = F.flatten(predict[:,1:4,:,:,:]).data
+        ground_truth = F.flatten(ground_truth[:,1:4,:,:,:]).data
         seg = (predict > 0.5)
 
         dice_numerator = 2*(seg * ground_truth).sum()
