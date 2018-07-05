@@ -64,7 +64,7 @@ class UNet3DEvaluator(extensions.Evaluator):
             with reporter_module.report_scope(observation):
                 ground_truth,data = self.converter(batch, self.device)
                 predict = unet(data)
-                #observation['vali/unet/loss'] = self.dice_coefficent(predict,ground_truth)
+                #observation['vali/unet/loss'] = self.loss_softmax_cross_entropy(predict,ground_truth)
                 observation['vali/unet/dice'] = self.dice_coefficent(predict,ground_truth)
             summary.add(observation)
 
