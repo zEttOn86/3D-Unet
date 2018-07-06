@@ -3,7 +3,7 @@
 @auther tk0103
 @date 2018-07-04
 """
-
+import chainer
 from chainer.training import extensions
 from chainer.dataset import convert
 from chainer.dataset import iterator as iterator_module
