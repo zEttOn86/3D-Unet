@@ -8,10 +8,11 @@ evaluation_interval: 5000
 
 patch:
   patchside: 64
-  interval: 32
+
 
 unet:
   fn: model.py
+  number_of_label: 7
 
 updater:
   fn: updater.py
