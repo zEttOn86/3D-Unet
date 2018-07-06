@@ -19,11 +19,11 @@ def main():
     parser = argparse.ArgumentParser(description='Train 3D-Unet')
     parser.add_argument('--gpu', '-g', type=int, default=-1,
                         help='GPU ID (negative value indicates CPU)')
-    parser.add_argument('--root', '-R', default=os.path.dirname(os.path.abspath(__file__)),
-                        help='Root directory path of input image')
+    parser.add_argument('--base', '-B', default=os.path.dirname(os.path.abspath(__file__)),
+                        help='base directory path of program files')
     parser.add_argument('--config_path', type=str, default='configs/base.yml',
                         help='path to config file')
-    parser.add_argument('--out', '-o', default= 'results',
+    parser.add_argument('--out', '-o', default= 'results/training',
                         help='Directory to output the result')
 
     parser.add_argument('--model', '-m', default='',
@@ -31,34 +31,35 @@ def main():
     parser.add_argument('--resume', '-res', default='',
                         help='Resume the training from snapshot')
 
+    parser.add_argument('--root', '-R', default=os.path.dirname(os.path.abspath(__file__)),
+                        help='Root directory path of input image')
     parser.add_argument('--training_list', default='configs/training_list.txt',
                         help='Path to training image list file')
     parser.add_argument('--validation_list', default='configs/validation_list.txt',
                         help='Path to validation image list file')
-
-    parser.add_argument('--training_coordinate_list', type=str,
-                        default='configs/training_coordinate_list.csv')
-    parser.add_argument('--validation_coordinate_list', type=str,
-                        default='configs/validation_coordinate_list.csv')
 
     args = parser.parse_args()
 
     '''
     'https://stackoverflow.com/questions/21005822/what-does-os-path-abspathos-path-joinos-path-dirname-file-os-path-pardir'
     '''
-    config = yaml_utils.Config(yaml.load(open(os.path.join(os.path.dirname(__file__), args.config_path))))
+    config = yaml_utils.Config(yaml.load(open(os.path.join(args.base, args.config_path))))
     print('GPU: {}'.format(args.gpu))
     print('# Minibatch-size: {}'.format(config.batchsize))
     print('# iteration: {}'.format(config.iteration))
+    print('Learning Rate: {}'.format(config.adam['alpha']))
     print('')
 
     # Load the datasets
-    train = UnetDataset(args.root, args.training_list, args.training_coordinate_list, config.patch['patchside'])
+    train = UnetDataset(args.root,
+                        os.path.join(args.base, args.training_list),
+                        config.patch['patchside'],
+                        config.unet['number_of_label'])
     train_iter = chainer.iterators.SerialIterator(train, batch_size=config.batchsize)
 
     # Set up a neural network to train
     print ('Set up a neural network to train')
-    unet = UNet3D(7)
+    unet = UNet3D(config.unet['number_of_label'])
     if args.model:
         chainer.serializers.load_npz(args.model, gen)
 
@@ -81,8 +82,9 @@ def main():
                             optimizer={'unet':opt_unet},
                             device=args.gpu)
 
-    def create_result_dir(result_dir, config_path, config):
+    def create_result_dir(base_dir, output_dir, config_path, config):
         """https://github.com/pfnet-research/sngan_projection/blob/master/train.py"""
+        result_dir = os.path.join(args.base, output_dir)
         if not os.path.exists(result_dir):
             os.makedirs(result_dir)
 
@@ -90,17 +92,18 @@ def main():
             bfn = os.path.basename(fn)
             shutil.copy(fn, '{}/{}'.format(result_dir, bfn))
 
-        copy_to_result_dir(config_path, result_dir)
         copy_to_result_dir(
-            config.unet['fn'], result_dir)
+            os.path.join(base_dir, config_path), result_dir)
         copy_to_result_dir(
-            config.updater['fn'], result_dir)
+            os.path.join(base_dir, config.unet['fn']), result_dir)
+        copy_to_result_dir(
+            os.path.join(base_dir,config.updater['fn']), result_dir)
 
-    out = os.path.join(args.root, args.out)
-    config_path = os.path.join(os.path.dirname(__file__), args.config_path)
-    create_result_dir(out, config_path, config)
+    create_result_dir(args.base,  args.out, args.config_path, config)
 
-    trainer = training.Trainer(updater, (config.iteration, 'iteration'), out=out)
+    trainer = training.Trainer(updater,
+                            (config.iteration, 'iteration'),
+                            out=os.path.join(args.base, args.out))
 
     # Set up logging
     snapshot_interval = (config.snapshot_interval, 'iteration')
