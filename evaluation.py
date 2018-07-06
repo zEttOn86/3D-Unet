@@ -3,22 +3,20 @@
 @auther tk0103
 @date 2018-07-04
 """
-import chainer
-from chainer.training import extensions
-from chainer.dataset import convert
-from chainer.dataset import iterator as iterator_module
+import os, time, sys, copy
 import numpy as np
-from chainer import reporter as reporter_module
-from chainer.training import extension
+import chainer
+import chainer.links as L
 import chainer.functions as F
+from chainer.dataset import concat_examples
 
-class Unet3DEvaluator(extensions.Evaluator):
-    def __init__(self, iterator, unet, number_of_label, eval_func=None, converter=convert.concat_examples, device=None, eval_hook=None):
-        if isinstance(iterator, iterator_module.Iterator):
+
+class Unet3DEvaluator(chainer.training.extensions.Evaluator):
+    def __init__(self, iterator, unet, number_of_label, converter=concat_examples, device=None, eval_hook=None):
+        if isinstance(iterator, chainer.dataset.Iterator):
             iterator = {'main': iterator}
         self._iterators = iterator
         self._targets = {'unet':unet}
-        self._eval_func = eval_func
         self.converter = converter
         self.device = device
         self.eval_hook = eval_hook
@@ -52,20 +50,12 @@ class Unet3DEvaluator(extensions.Evaluator):
         unet = self._targets['unet']
         #eval_func = self.eval_func or target
 
-        if self.eval_hook:
-            self.eval_hook(self)
-
-        if hasattr(iterator, 'reset'):
-            iterator.reset()
-            it = iterator
-        else:
-            it = copy.copy(iterator)
-
-        summary = reporter_module.DictSummary()
+        it = copy.copy(iterator)#shallow copy
+        summary = chainer.reporter.DictSummary()
 
         for batch in it:
             observation = {}
-            with reporter_module.report_scope(observation):
+            with chainer.reporter.report_scope(observation):
                 ground_truth, data = self.converter(batch, self.device)
                 with chainer.using_config("train", False):
                     with chainer.no_backprop_mode():
