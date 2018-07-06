@@ -1,0 +1,20 @@
+[
+    {
+        "elapsed_time": 107.91785206412897,
+        "epoch": 100,
+        "iteration": 100,
+        "unet/loss": 0.13697628676891327
+    },
+    {
+        "elapsed_time": 211.12757498724386,
+        "epoch": 200,
+        "iteration": 200,
+        "unet/loss": 0.07885505259037018
+    },
+    {
+        "elapsed_time": 314.16671867109835,
+        "epoch": 300,
+        "iteration": 300,
+        "unet/loss": 0.06335365027189255
+    }
+]
