@@ -12,6 +12,7 @@ from chainer.training import extensions
 
 from model import UNet3D
 from updater import Unet3DUpdater
+from evaluation import Unet3DEvaluator
 from dataset import UnetDataset
 import util.yaml_utils  as yaml_utils
 
@@ -56,6 +57,12 @@ def main():
                         config.patch['patchside'],
                         config.unet['number_of_label'])
     train_iter = chainer.iterators.SerialIterator(train, batch_size=config.batchsize)
+
+    val = UnetDataset(args.root,
+                        os.path.join(args.base, args.validation_list),
+                        config.patch['patchside'],
+                        config.unet['number_of_label'])
+    val_iter = chainer.iterators.SerialIterator(val, batch_size=config.batchsize, repeat=False, shuffle=False)
 
     # Set up a neural network to train
     print ('Set up a neural network to train')
@@ -108,6 +115,7 @@ def main():
     # Set up logging
     snapshot_interval = (config.snapshot_interval, 'iteration')
     display_interval = (config.display_interval, 'iteration')
+    evaluation_interval = (config.evaluation_interval,"iteration")
     trainer.extend(extensions.snapshot(filename='snapshot_iter_{.updater.iteration}.npz'),trigger=snapshot_interval)
     trainer.extend(extensions.snapshot_object(unet, filename=unet.__class__.__name__ +'_{.updater.iteration}.npz'), trigger=snapshot_interval)
 
@@ -118,8 +126,10 @@ def main():
     trainer.extend(extensions.ProgressBar(update_interval=10))
 
     # Print selected entries of the log to stdout
-    report_keys = ['epoch', 'iteration', 'unet/loss']
+    report_keys = ['epoch', 'iteration', 'unet/loss', 'unet/val/loss', 'unet/val/dice']
     trainer.extend(extensions.PrintReport(report_keys), trigger=display_interval)
+
+    trainer.extend(Unet3DEvaluator(val_iter, unet, config.unet['number_of_label'], device=args.gpu), trigger=evaluation_interval)
 
     # Use linear shift
     ext_opt_unet = extensions.LinearShift('alpha', (config.adam['alpha'], 0.),
@@ -128,7 +138,8 @@ def main():
 
     # Save two plot images to the result dir
     if extensions.PlotReport.available():
-        trainer.extend(extensions.PlotReport(['unet/loss'], 'iteration', file_name='unet_loss.png',trigger=display_interval))
+        trainer.extend(extensions.PlotReport(['unet/loss', 'unet/val/loss'], 'iteration', file_name='unet_loss.png',trigger=display_interval))
+        trainer.extend(extensions.PlotReport(['unet/val/dice'], 'iteration', file_name='unet_dice_score.png',trigger=display_interval))
 
     if args.resume:
         # Resume from a snapshot
