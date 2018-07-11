@@ -113,8 +113,7 @@ data/seg/file_list.txt
 data/t1/file_list.txt
 *.mhd
 *.raw
-*.png
-results/
+
 
 # model zip file
 *.npz
