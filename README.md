@@ -1,23 +1,7 @@
 # 3D-Unet
-Chainer implementation of 3D Unet.  
-This program segments brain and unfinished implementaions.  
-Training configs are written at coonfigs/base.yml.
-
-## Usage
-1. Preprocesing  
-Patch coordinate is extracted as csv file.  
-
-    Python preprocessing.py
-    
-2. Training  
-Train 3D unet.  
-
-    Python training.py
-    
-3. Prediction  
-Segment images with trained network.  
-
-    Python prediction.py
+Chainer implementation of 3D Unet for brain segmentaion.  
+Training configs are written at coonfigs/base.yml.  
+Because of the limitaion of GPU memory, we used patch based method.
 
 ## Requirements
 - SimpleITK
@@ -25,7 +9,20 @@ Segment images with trained network.
 - Chainer v4
 - yaml  
 
-## Umimplemented function
-- validation
-- test code
-- Jaccard index
+## Usage
+__Training__  
+To train 3D unet.  
+```
+Python training.py
+```    
+__Prediction__  
+To segment images with trained network.  
+```
+Python prediction.py
+```
+
+## Training result
+Training loss and dice score.
+![loss](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_loss.png)  
+![dice](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_dice_score.png)
+
