@@ -20,8 +20,8 @@ class Unet3DUpdater(chainer.training.StandardUpdater):
         * @param predict Output of unet
         * @param ground_truth Ground truth label
         """
-        batchsize = len(predict)
-        loss = F.sum(-F.log(predict) * ground_truth)/batchsize
+
+        loss = -F.mean(F.log(predict+1e-16) * ground_truth)
 
         chainer.report({"loss":loss}, unet)#mistery
         return loss
