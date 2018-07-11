@@ -5,7 +5,6 @@ Because of the limitaion of GPU memory, we used patch based method.
 
 ## Requirements
 - SimpleITK
-- pandas  
 - Chainer v4
 - yaml  
 
