@@ -105,7 +105,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
+#------------------------------------------------------------------------------
 # My config
 data/data_config.xlsx
 p*.gz
@@ -113,7 +113,6 @@ data/seg/file_list.txt
 data/t1/file_list.txt
 *.mhd
 *.raw
-
 
 # model zip file
 *.npz
@@ -124,3 +123,5 @@ preprocessing.py
 configs/coordinate_list.csv
 configs/training_coordinate_list.csv
 configs/validation_coordinate_list.csv
+prediction.py
+evaluator.py
