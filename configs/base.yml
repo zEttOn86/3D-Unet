@@ -9,7 +9,6 @@ evaluation_interval: 5000
 patch:
   patchside: 64
 
-
 unet:
   fn: model.py
   number_of_label: 7

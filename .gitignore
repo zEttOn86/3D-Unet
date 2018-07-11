@@ -111,6 +111,8 @@ data/data_config.xlsx
 p*.gz
 data/seg/file_list.txt
 data/t1/file_list.txt
+*.mhd
+*.raw
 
 # model zip file
 *.npz

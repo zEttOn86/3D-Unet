@@ -6,7 +6,6 @@
 import os, sys, time
 import numpy as np
 import chainer
-import pandas as pd
 import util.dataIO as IO
 
 class UnetDataset(chainer.dataset.DatasetMixin):
