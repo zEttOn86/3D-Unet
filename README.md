@@ -69,3 +69,14 @@ Training loss and dice score.
 ![loss](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_loss.png)  
 ![dice](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_dice_score.png)
 
+## Predicted result
+Example of input image
+![input](https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/input_image.png)  
+Example of ground truth
+![gt](https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/ground_truth.png)  
+Example of prediction
+![p](https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/prediction.png)  
+
+## Future plan
+We have some plan to add evaluation code to measure Jaccard index.
+
