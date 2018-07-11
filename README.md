@@ -13,12 +13,55 @@ Because of the limitaion of GPU memory, we used patch based method.
 __Training__  
 To train 3D unet.  
 ```
-Python training.py
-```    
+python train.py -h
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --gpu GPU, -g GPU     GPU ID (negative value indicates CPU)
+  --base BASE, -B BASE  base directory path of program files
+  --config_path CONFIG_PATH
+                        path to config file
+  --out OUT, -o OUT     Directory to output the result
+  --model MODEL, -m MODEL
+                        Load model data
+  --resume RESUME, -res RESUME
+                        Resume the training from snapshot
+  --root ROOT, -R ROOT  Root directory path of input image
+  --training_list TRAINING_LIST
+                        Path to training image list file
+  --validation_list VALIDATION_LIST
+                        Path to validation image list file
+```  
+
+Example:  
+To train using gpu
+```
+python train.py -g 0
+```  
+
 __Prediction__  
 To segment images with trained network.  
 ```
-Python prediction.py
+python predict.py -h
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --gpu GPU, -g GPU     GPU ID (negative value indicates CPU)
+  --base BASE, -B BASE  base directory path of program files
+  --config_path CONFIG_PATH
+                        path to config file
+  --out OUT, -o OUT     Directory to output the result
+  --model MODEL, -m MODEL
+                        Load model data(snapshot)
+  --root ROOT, -R ROOT  Root directory path of input image
+  --test_list TEST_LIST
+                        Path to test image list file
+```
+  
+Example:  
+To predict 
+```
+python predict.py -g 0 -m results/training/UNet3D_150000.npz
 ```
 
 ## Training result
