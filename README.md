@@ -65,7 +65,7 @@ python predict.py -g 0 -m results/training/UNet3D_150000.npz
 
 ## Training result
 Training loss and dice score.
-![loss](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_loss.png = 457x279)  
+![loss](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_loss.png =457x279)  
 ![dice](https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_dice_score.png)
 
 ## Predicted result
