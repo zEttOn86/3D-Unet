@@ -1,7 +1,7 @@
 # 3D-Unet
 Chainer implementation of 3D Unet for brain segmentaion.  
-Training configs are written at coonfigs/base.yml.  
-Because of the limitaion of GPU memory, we used patch based method.
+Training configs are written at configs/base.yml.  
+Because of the limitation of GPU memory, we used patch based method.
 
 ## Requirements
 - SimpleITK
@@ -33,13 +33,13 @@ optional arguments:
 ```  
 
 Example:  
-To train using gpu
+To train 3D Unet using gpu
 ```
 python train.py -g 0
 ```  
 
 __Prediction__  
-To segment images with trained network.  
+To predict images with trained network.  
 ```
 python predict.py -h
 
@@ -58,7 +58,7 @@ optional arguments:
 ```
 
 Example:  
-To predict
+To predict label using gpu
 ```
 python predict.py -g 0 -m results/training/UNet3D_150000.npz
 ```
@@ -69,15 +69,16 @@ Training loss and dice score.
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_dice_score.png" alt="dice" title="dice" width=70% height=70%>
 
 ## Predicted result
-Example of input image  
+**Example of input image**  
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/input_image.png" alt="input" title="input" width=50% height=50%>  
-Example of ground truth  
-<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/ground_truth.png" alt="gt" title="gt" width=50% height=50%>  
-Example of prediction  
+  
+**Example of ground truth**  
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/ground_truth.png" alt="gt" title="gt" width=50% height=50%>    
+**Example of prediction**  
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/prediction.png" alt="p" title="p" width=50% height=50%>  
 
 ## Results
-We calculated jaccard index  
+We calculated jaccard index of image shown above.
 
 | label | J.I. |
 | :---: | :---: |
