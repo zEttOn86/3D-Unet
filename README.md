@@ -64,16 +64,16 @@ python predict.py -g 0 -m results/training/UNet3D_150000.npz
 ```
 
 ## Training result
-Training loss and dice score.
-<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_loss.png" alt="loss" title="loss" width=70% height=70%>
+Training loss and dice score.  
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_loss.png" alt="loss" title="loss" width=70% height=70%>  
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/training/unet_dice_score.png" alt="dice" title="dice" width=70% height=70%>
 
 ## Predicted result
-Example of input image
-<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/input_image.png" alt="input" title="input" width=70% height=70%>
-Example of ground truth
+Example of input image  
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/input_image.png" alt="input" title="input" width=70% height=70%>  
+Example of ground truth  
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/ground_truth.png" alt="gt" title="gt" width=70% height=70%>
-Example of prediction
+Example of prediction  
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/prediction.png" alt="p" title="p" width=70% height=70%>
 
 ## Future plan
