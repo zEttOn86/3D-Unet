@@ -70,11 +70,11 @@ Training loss and dice score.
 
 ## Predicted result
 Example of input image  
-<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/input_image.png" alt="input" title="input" width=70% height=70%>  
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/input_image.png" alt="input" title="input" width=50% height=50%>  
 Example of ground truth  
-<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/ground_truth.png" alt="gt" title="gt" width=70% height=70%>
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/ground_truth.png" alt="gt" title="gt" width=50% height=50%>
 Example of prediction  
-<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/prediction.png" alt="p" title="p" width=70% height=70%>
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/prediction.png" alt="p" title="p" width=50% height=50%>  
 
 ## Future plan
 We have some plan to add evaluation code to measure Jaccard index.
