@@ -8,6 +8,10 @@ Because of the limitation of GPU memory, we used patch based method.
 - Chainer v4
 - yaml  
 
+## Network architecture
+__3D Unet architecture__
+<img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/3DUnet_architecture.png" alt="architecture" title="architecture"> 
+
 ## Usage
 __Training__  
 To train 3D unet.  
