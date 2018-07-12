@@ -56,9 +56,9 @@ optional arguments:
   --test_list TEST_LIST
                         Path to test image list file
 ```
-  
+
 Example:  
-To predict 
+To predict
 ```
 python predict.py -g 0 -m results/training/UNet3D_150000.npz
 ```
@@ -76,6 +76,15 @@ Example of ground truth
 Example of prediction  
 <img src="https://github.com/zEttOn86/3D-Unet/blob/master/results/prediction/prediction.png" alt="p" title="p" width=50% height=50%>  
 
-## Future plan
-We have some plan to add evaluation code to measure Jaccard index.
+## Results
+We calculated jaccard index  
 
+| label | J.I. |
+| :---: | :---: |
+| 0 | 0.99553 |
+| 1 | 0.83438 |
+| 2 | 0.86771 |
+| 3 | 0.91392 |
+| 4 | 0.80850 |
+| 5 | 0.88321 |
+| 6 | 0.87240 |
