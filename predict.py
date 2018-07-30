@@ -110,7 +110,7 @@ def main():
 
         # Save probability map
         for ch in range(probability_map.shape[0]):
-            imageProbability = sitk.GetImageFromArray(probability_map)
+            imageProbability = sitk.GetImageFromArray(probability_map[ch,:])
             imageProbability.SetSpacing(sitkOrg.GetSpacing())
             imageProbability.SetOrigin(sitkOrg.GetOrigin())
             sitk.WriteImage(imageProbability, '{}/{}_probability_{}.mhd'.format(result_dir, fn, ch))
